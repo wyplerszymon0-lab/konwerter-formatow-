@@ -1,0 +1,12 @@
+{
+    "osoba": {
+        "imie": "Szymon",
+        "nazwisko": "Wypler",
+        "wiek": 22,
+        "adres": {
+            "miasto": "Wroclaw",
+            "ulica": "Przykładowa 1"
+        },
+        "hobby": ["programowanie", "git", "python"]
+    }
+}
