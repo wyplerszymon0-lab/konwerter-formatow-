@@ -1,0 +1,39 @@
+name: Build EXE
+
+on:
+  schedule:
+    - cron: '0 10 * * 1'  # co poniedziałek o 10:00
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repozytorium
+        uses: actions/checkout@v4
+
+      - name: Konfiguracja Pythona
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalacja zależności
+        shell: pwsh
+        run: |
+          ./installResources.ps1
+
+      - name: Budowanie pliku EXE
+        shell: pwsh
+        run: |
+          pyinstaller --onefile --noconsole program.py
+
+      - name: Upload artefaktu
+        uses: actions/upload-artifact@v4
+        with:
+          name: program-exe
+          path: dist/program.exe
